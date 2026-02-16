@@ -2,8 +2,8 @@
 ### definition
 cloud means storing data and running applications on the internet instead of your own computer.
 ### real life examples 
-  > google drive- your files are stored online
-  > Gmail- your emails are stored in cloud servers
+     >  google drive- your files are stored online
+     >  Gmail- your emails are stored in cloud servers
 
 ### Data centers are buildings full of :
   - thousands of powerful computers
