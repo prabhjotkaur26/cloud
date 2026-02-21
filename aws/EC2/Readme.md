@@ -192,3 +192,69 @@ Your website is now live 🌍
 ❌ Can be complex for beginners
 ❌ Costs can increase if not monitored
 ❌ Requires cloud knowledge
+
+## ✅ 1️⃣ Create EC2 Using AWS CLI (Command Line)
+
+This uses Amazon EC2 from Amazon Web Services.
+
+### Step 1: Configure AWS CLI
+aws configure
+Enter:
+
+Access Key
+
+Secret Key
+
+Region
+
+Output format
+
+### Step 2: Run EC2 Instance
+aws ec2 run-instances \
+    --image-id ami-0abcdef1234567890 \
+    --count 1 \
+    --instance-type t2.micro \
+    --key-name MyKeyPair \
+    --security-group-ids sg-0123456789abcdef0 \
+    --subnet-id subnet-0123456789abcdef0
+
+👉 This command:
+
+Selects OS image
+
+Chooses instance type
+
+Attaches key pair
+
+Adds security group
+
+Launches serverEnter:
+
+Access Key
+
+Secret Key
+
+Region
+
+Output format
+
+Step 2: Run EC2 Instance
+aws ec2 run-instances \
+    --image-id ami-0abcdef1234567890 \
+    --count 1 \
+    --instance-type t2.micro \
+    --key-name MyKeyPair \
+    --security-group-ids sg-0123456789abcdef0 \
+    --subnet-id subnet-0123456789abcdef0
+
+👉 This command:
+
+Selects OS image
+
+Chooses instance type
+
+Attaches key pair
+
+Adds security group
+
+Launches server
