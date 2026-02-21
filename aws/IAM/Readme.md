@@ -179,3 +179,136 @@ You can see your account → Authorization
 You cannot see other people's accounts → Access control
 
 That’s IAM working behind the scenes.
+
+# How to create and use IAM in AWS (step-by-step)
+
+IAM is different from EC2.
+
+IAM = Identity and Access Management
+It controls who can access AWS and what they can do.
+
+We will use AWS Identity and Access Management in Amazon Web Services.
+
+## 🧠 What is IAM? (Simple Explanation)
+
+IAM helps you:
+
+Create users
+
+Give permissions
+
+Control access to services (like EC2, S3, etc.)
+
+Improve security
+
+👉 Example:
+If you have 5 employees, you should NOT share your root account.
+Instead, create IAM users for them.
+
+## ✅ Step-by-Step: Create IAM User in AWS
+### ✅ Step 1: Login to AWS
+
+Go to AWS Console
+
+Login using root account (first time only)
+
+### ✅ Step 2: Open IAM Service
+
+Search IAM in top search bar
+
+Click IAM
+
+You will see IAM Dashboard.
+
+### ✅ Step 3: Create a New User
+
+Click Users
+
+Click Create user
+
+### ✅ Step 4: Enter User Details
+
+Enter username
+Example: dev-user
+
+Select access type:
+
+#### ✅ AWS Management Console access (for login)
+
+✅ Programmatic access (for CLI/API)
+
+Click Next
+
+### ✅ Step 5: Set Permissions
+
+You have 3 options:
+
+Option 1 (Easy – for beginners):
+
+Attach policy directly
+
+Example policies:
+
+AdministratorAccess (full access)
+
+AmazonEC2FullAccess
+
+AmazonS3FullAccess
+
+Select required policy → Click Next
+
+### ✅ Step 6: Review and Create
+
+Review details
+
+Click Create User
+
+Done 🎉
+
+### ✅ Step 7: Save Login Details
+
+AWS will show:
+
+Console login URL
+
+Username
+
+Password (if auto-generated)
+
+⚠️ Download or copy these details.
+
+### ✅ Step 8: Login Using IAM User
+
+Logout root account
+
+Open IAM login URL
+
+Enter:
+
+Account ID
+
+Username
+
+Password
+
+Now you are logged in as IAM user
+
+🎯 Example Real-Life Scenario
+
+Company has:
+
+Dev team
+
+Testing team
+
+Admin team
+
+Using IAM:
+
+Dev team → EC2 access only
+
+Testing team → Read-only access
+
+Admin team → Full access
+
+This improves security.
