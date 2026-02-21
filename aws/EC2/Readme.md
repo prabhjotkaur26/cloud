@@ -258,3 +258,143 @@ Attaches key pair
 Adds security group
 
 Launches server
+
+# Here is a clear and simple step-by-step to launch EC2 in AWS.
+
+We will launch a virtual server using Amazon EC2 in Amazon Web Services.
+
+## ✅ Step 1: Login to AWS
+
+Go to AWS Console
+
+Enter username & password
+
+After login, you’ll see the AWS dashboard
+
+## ✅ Step 2: Open EC2 Service
+
+In the top search bar, type EC2
+
+Click on EC2
+
+You will see the EC2 Dashboard
+
+## ✅ Step 3: Click “Launch Instance”
+
+Click the orange Launch Instance button.
+
+## ✅ Step 4: Configure Your Instance
+
+Now fill in the details:
+
+### 🔹 4.1 Name Your Instance
+
+Example:
+My-First-EC2
+
+This is just a label for you.
+
+### 🔹 4.2 Choose AMI (Operating System)
+
+Select an OS like:
+
+Amazon Linux (recommended)
+
+Ubuntu
+
+Windows Server
+
+👉 This is like choosing Windows or Linux for your computer.
+
+### 🔹 4.3 Choose Instance Type
+
+Select:
+
+t2.micro (Free Tier eligible)
+
+This defines:
+
+CPU
+
+RAM
+
+For learning, always choose Free Tier.
+
+### 🔹 4.4 Create or Select Key Pair 🔑
+
+Key pair is used to log in securely.
+
+If new:
+
+Click Create Key Pair
+
+Give it a name
+
+Choose RSA
+
+Download .pem file
+
+⚠️ Keep it safe. You cannot download it again.
+
+### 🔹 4.5 Configure Network & Security Group
+
+Security Group = Firewall.
+
+Allow:
+
+SSH (Port 22) → For login
+
+HTTP (Port 80) → For website
+
+HTTPS (Port 443) → Secure website
+
+For beginners:
+
+Allow SSH from “My IP”
+
+### 🔹 4.6 Configure Storage
+
+Default is 8GB (enough for practice).
+
+You can increase if needed.
+
+## ✅ Step 5: Click “Launch Instance”
+
+Click Launch Instance button.
+
+Wait 1–2 minutes.
+
+Status will change to:
+
+## ✅ Running
+
+## ✅ Step 6: Connect to EC2
+
+Go to Instances
+
+Select your instance
+
+Click Connect
+
+Choose:
+
+EC2 Instance Connect (browser method)
+OR
+
+SSH using key file
+
+If using SSH:
+
+ssh -i your-key.pem ec2-user@your-public-ip
+
+Now you are inside your virtual server 🎉
+
+## ✅ Step 7: Stop or Terminate (Very Important)
+
+After practice:
+
+Stop → Temporary shutdown
+
+Terminate → Delete permanently
+
+⚠️ Always terminate if not using to avoid charges.
