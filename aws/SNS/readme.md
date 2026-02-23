@@ -83,3 +83,23 @@ When you send a message to a Topic, SNS sends it to all subscribers.
 - Supports multiple subscribers
 
 - Supports SMS worldwide (country restrictions apply)
+
+   ## REAL WORLD EXAMPLE
+  File Upload Notification (Your Case)
+Situation:
+
+New file uploaded to S3.
+
+Flow:
+
+File uploaded
+
+S3 triggers Lambda
+
+Lambda publishes message to SNS
+
+SNS sends SMS:
+
+New file uploaded: report.pdf
+
+Automatic notification.
