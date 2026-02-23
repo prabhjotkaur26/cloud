@@ -84,13 +84,13 @@ Situation:
 
 You click “Forgot Password”.
 
-Behind the Scenes:
+### Behind the Scenes:
 
 System generates reset link
 
 Application calls SES
 
-SES sends email:
+### SES sends email:
 
 Click here to reset your password.
 
