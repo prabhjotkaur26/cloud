@@ -11,9 +11,8 @@ jobs:
   terraform-destroy:
     runs-on: ubuntu-latest
 
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout code
@@ -28,6 +27,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
+
+      - name: Verify AWS Identity (Debug)
+        run: aws sts get-caller-identity
 
       - name: Terraform Init
         run: terraform init
