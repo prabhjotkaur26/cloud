@@ -49,10 +49,3 @@ jobs:
       # 8️⃣ Show State (PROOF 🔥)
       - name: Show State
         run: terraform state list
-
-      - name: Terraform Plan
-        run: terraform plan
-
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve
