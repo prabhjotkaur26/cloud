@@ -27,10 +27,6 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
 
-      # 3️⃣ AWS Credentials
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-
       # 4️⃣ Terraform Init (REMOTE STATE)
       - name: Terraform Init
         run: terraform init
