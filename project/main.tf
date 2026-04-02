@@ -1,16 +1,23 @@
 provider "aws" {
   region = "ap-south-1"
 }
-
+terraform {
+  backend "s3" {
+    bucket         = "my-terraform-state-bucket-prabh26"
+    key            = "terraform.tfstate"
+    region         = "ap-south-1"
+    encrypt        = true
+  }
+}
 ############################
 # S3 BUCKET
 ############################
 resource "aws_s3_bucket" "upload_bucket" {
-  bucket = "my-unique-upload-bucket-12345"
+  bucket = "prabhjot100-new-unique-2026"  # Unique name
 }
 
 resource "aws_s3_bucket_notification" "eventbridge" {
-  bucket = aws_s3_bucket.upload_bucket.id
+  bucket      = aws_s3_bucket.upload_bucket.id
   eventbridge = true
 }
 
@@ -18,14 +25,14 @@ resource "aws_s3_bucket_notification" "eventbridge" {
 # SNS TOPIC
 ############################
 resource "aws_sns_topic" "topic" {
-  name = "my-topic"
+  name = "my-topic-new-2026"
 }
 
 ############################
 # IAM ROLE FOR LAMBDA
 ############################
 resource "aws_iam_role" "lambda_role" {
-  name = "lambda_exec_role"
+  name = "lambda_exec_role_new"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -48,26 +55,26 @@ resource "aws_iam_role_policy_attachment" "lambda_basic" {
 # LAMBDA FUNCTIONS
 ############################
 resource "aws_lambda_function" "lambda1" {
-  function_name = "lambda1"
+  function_name = "lambda1-new"
   filename      = "lambda_zips/lambda1.zip"
   handler       = "lambda1.lambda_handler"
-  runtime       = "python3.9"
+  runtime       = "python3.11"
   role          = aws_iam_role.lambda_role.arn
 }
 
 resource "aws_lambda_function" "lambda2" {
-  function_name = "lambda2"
+  function_name = "lambda2-new"
   filename      = "lambda_zips/lambda2.zip"
   handler       = "lambda2.lambda_handler"
-  runtime       = "python3.9"
+  runtime       = "python3.11"
   role          = aws_iam_role.lambda_role.arn
 }
 
 resource "aws_lambda_function" "lambda3" {
-  function_name = "lambda3"
+  function_name = "lambda3-new"
   filename      = "lambda_zips/lambda3.zip"
   handler       = "lambda3.lambda_handler"
-  runtime       = "python3.9"
+  runtime       = "python3.11"
   role          = aws_iam_role.lambda_role.arn
 }
 
@@ -75,9 +82,10 @@ resource "aws_lambda_function" "lambda3" {
 # STEP FUNCTION ROLE
 ############################
 resource "aws_iam_role" "step_function_role" {
-  name = "step_function_role"
+  name = "step_function_role_new"
 
   assume_role_policy = jsonencode({
+    Version = "2012-10-17"
     Statement = [{
       Effect = "Allow"
       Principal = {
@@ -92,11 +100,16 @@ resource "aws_iam_role_policy" "step_function_policy" {
   role = aws_iam_role.step_function_role.id
 
   policy = jsonencode({
+    Version = "2012-10-17"
     Statement = [
       {
         Effect = "Allow"
-        Action = "lambda:InvokeFunction"
-        Resource = "*"
+        Action = ["lambda:InvokeFunction"]
+        Resource = [
+          aws_lambda_function.lambda1.arn,
+          aws_lambda_function.lambda2.arn,
+          aws_lambda_function.lambda3.arn
+        ]
       }
     ]
   })
@@ -106,7 +119,7 @@ resource "aws_iam_role_policy" "step_function_policy" {
 # STEP FUNCTION
 ############################
 resource "aws_sfn_state_machine" "state_machine" {
-  name     = "my-state-machine"
+  name     = "my-state-machine-new"
   role_arn = aws_iam_role.step_function_role.arn
 
   definition = jsonencode({
@@ -132,6 +145,7 @@ resource "aws_sfn_state_machine" "state_machine" {
             Next = "Lambda3"
           }
         ]
+        Default = "Lambda3"
       }
 
       Lambda2 = {
@@ -153,9 +167,10 @@ resource "aws_sfn_state_machine" "state_machine" {
 # EVENTBRIDGE ROLE
 ############################
 resource "aws_iam_role" "eventbridge_role" {
-  name = "eventbridge_role"
+  name = "eventbridge_role_new"
 
   assume_role_policy = jsonencode({
+    Version = "2012-10-17"
     Statement = [{
       Effect = "Allow"
       Principal = {
@@ -170,6 +185,7 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
   role = aws_iam_role.eventbridge_role.id
 
   policy = jsonencode({
+    Version = "2012-10-17"
     Statement = [{
       Effect = "Allow"
       Action = "states:StartExecution"
@@ -182,7 +198,7 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
 # EVENTBRIDGE RULE
 ############################
 resource "aws_cloudwatch_event_rule" "s3_rule" {
-  name = "s3-upload-rule"
+  name = "s3-upload-rule-new"
 
   event_pattern = jsonencode({
     source = ["aws.s3"],
@@ -200,7 +216,7 @@ resource "aws_cloudwatch_event_rule" "s3_rule" {
 ############################
 resource "aws_cloudwatch_event_target" "target" {
   rule      = aws_cloudwatch_event_rule.s3_rule.name
-  target_id = "StepFunctionTarget"
+  target_id = "StepFunctionTargetNew"
   arn       = aws_sfn_state_machine.state_machine.arn
   role_arn  = aws_iam_role.eventbridge_role.arn
 }

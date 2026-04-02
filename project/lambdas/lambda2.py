@@ -3,7 +3,6 @@ import urllib.parse
 
 s3 = boto3.client('s3')
 ses = boto3.client('ses')
-
 def lambda_handler(event, context):
     bucket = event['bucket']
     key = urllib.parse.unquote_plus(event['key'])
