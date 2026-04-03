@@ -56,30 +56,32 @@ resource "aws_iam_role_policy_attachment" "lambda_basic" {
 ############################
 resource "aws_lambda_function" "lambda1" {
   function_name = "lambda1-new"
-  filename      = "lambda_zips/lambda1.zip"
   handler       = "lambda1.lambda_handler"
   runtime       = "python3.11"
-  role          = aws_iam_role.lambda_role.arn
+
+  filename = "${path.module}/lambdas/lambda_zips/lambda1.zip"
+
+  role = aws_iam_role.lambda_role.arn
 }
 
 resource "aws_lambda_function" "lambda2" {
   function_name = "lambda2-new"
-  filename      = "lambda_zips/lambda2.zip"
   handler       = "lambda2.lambda_handler"
   runtime       = "python3.11"
-  role          = aws_iam_role.lambda_role.arn
-}
 
+  filename = "${path.module}/lambdas/lambda_zips/lambda2.zip"
+
+  role = aws_iam_role.lambda_role.arn
+}
 resource "aws_lambda_function" "lambda3" {
   function_name = "lambda3-new"
-  filename      = "lambda_zips/lambda3.zip"
   handler       = "lambda3.lambda_handler"
   runtime       = "python3.11"
-  role          = aws_iam_role.lambda_role.arn
+
+  filename = "${path.module}/lambdas/lambda_zips/lambda3.zip"
+
+  role = aws_iam_role.lambda_role.arn
 }
-filename = "${path.module}/lambdas/lambda_zips/lambda1.zip"
-filename = "${path.module}/lambdas/lambda_zips/lambda2.zip"
-filename = "${path.module}/lambdas/lambda_zips/lambda3.zip"
 
 ############################
 # STEP FUNCTION ROLE
